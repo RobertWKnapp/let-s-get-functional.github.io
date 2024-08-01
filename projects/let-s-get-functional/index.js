@@ -3,7 +3,8 @@
 'use strict';
 
 var customers = require('./data/customers.json');
-var _ = require('underbar');
+var _ = require('underbar');// _ = {filter: ?, map: }
+
 
 /**
  * 1. Import your lodown module using the require() method,
@@ -21,15 +22,76 @@ var _ = require('underbar');
  *    IMPORTANT: Make sure you replace <YOUR_GITHUB_FOLDER with your actual github folder name that is in your workspace.
  */
 
-var maleCount = function(array) {
+// - **Objective**: Find the number of male customers
+// - **Input**: `Array`
+// - **Output**: `Number`
+// - **Constraints**: use `filter`
+// var maleCount = function(array) {
+//     let result = [];
+// for (let i = 0, i < array.length; i++)
+//     if(array[i].gender === 'male'){
+//         result.push(array[i])
+//     }
+//     return result.length
+// }
 
+var maleCount = function(array){
+    let males = _.filter(array, (customer) => customer.gender === 'male');
+    return males.length;
+}
+
+// _.filter = function(array, func){
+//     // create output array
+//     let output = [];
+//     // iterate over the array
+//     for (let i = 0; i < array.length; i++){
+//         // determint if the result of invoking the func is truthy
+//         if (func(array[i], i, array)) {
+//             // if true, push into storage array
+//             output.push(array[i]);
+//         }
+//     }
+//         // return output array
+//         return output;  
+//};
+// using _.filter
+var femaleCount = function(array){
+    let females = _.filter(array, (customer) => customer.gender === 'female');
+    
+    return females.length
 };
+// var femaleCountWithReduce = function (array){
+//     let females = _.reduce(array,function(accumlulator, current){
+//     }, 0)
+// };
+// **Objective**: Find the oldest customer's name
+//  - **Input**: `Array`
+//  - **Output**: `String`
+//  - **Constraints**:
+var oldestCustomer = function(array) {
+    let oldest = _.reduce(array, function(acc, customer){
+        if (customer.age > acc.age){
+            return customer; 
+        } else {
+            return acc;
+        }
+        
+    })
+    return oldest.name;
+}
 
-var femaleCount;
 
-var oldestCustomer;
+var youngestCustomer = function(array){
+    let youngest = _.reduce(array, function(acc, customer){
+        if (customer.age < acc.age){
+            return customer; 
 
-var youngestCustomer;
+        }else {
+            return acc;
+        }
+    })
+    return youngest.name;
+}
 
 var averageBalance;
 
