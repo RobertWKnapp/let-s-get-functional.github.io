@@ -36,7 +36,42 @@ let males = _.filter(array, function(customer) {
 return males.length;
 };
 
-var femaleCount;
+// - **Objective**: Find the number of female customers
+// - **Input**: `Array`
+// - **Output**: `Number`
+// - **Constraints**: use `reduce`
+
+_.reduce = function(array, func, seed) {
+    let output;
+    // determine if see was not provided a value
+if (seed === undefined) {
+        output = array[0]; //  assign output the first item in the array
+        for (let i = 1; i < array.length; i++){
+        // reassign output to the result invoking the callback function
+    output = func(output, array[i], i)
+}
+        //result = func(output, array[i], i)
+  }  else { // else there was a seed value provided
+    output = seed; // assign result seed, 
+    for (let i = 0; i < array.length; i++) {
+        output = func(output, array[i], i);
+    }
+    }   
+    return output;
+
+ };
+var femaleCount = function(array) {
+    return array_.reduce((count, customer))
+    // let females = _.reduce(array, function(acc, current){
+    //     // checking if current gender is female
+    //     if (current.gender === 'female') {
+    //         acc + 1;
+    //     }
+    //     return acc;
+    }, 0 );
+
+}
+
 
 var oldestCustomer = function(array) {
     let oldest = _.reduce(array, function(accumulator, current) {
