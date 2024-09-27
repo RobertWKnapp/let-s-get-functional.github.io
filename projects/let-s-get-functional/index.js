@@ -38,7 +38,23 @@ return males.length;
 
 var femaleCount;
 
-var oldestCustomer;
+var oldestCustomer = function(array) {
+    let oldest = _.reduce(array, function(accumulator, current) {
+        // accumulator = {Adele Mullin} | current = {Olga Newton}
+        if (current.age > accumulator.age){
+            return current;
+        }
+        return accumulator;
+    });
+    return oldest.name;
+};
+// invoke _.reduce()
+// output;
+// if (undefined === undefined) // true
+// output = {Adele Mullin}
+// for loop
+// i = 1
+// output = func(Adele Mullin}, {Olga Newton})
 
 var youngestCustomer;
 
