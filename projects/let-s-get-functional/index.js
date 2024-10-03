@@ -117,14 +117,21 @@ var youngestCustomer = function(array) {
     return youngest.name;
 }
 
-var averageBalance = function(array) {
-    var totalBalance = _.reduce(array, function(sum, customer) {
-        var balance = Number(customer.balance.replace(/[$,]/g, ''));
-        newBalance = balance - 0;
-        return sum + newBalance;
-    }, 0);
-    return balance / array.length;
-}
+// ### 5: `averageBalance`
+//  - **Objective**: Find the average balance of all customers
+//  - **Input**: `Array`
+//  - **Output**: `Number`
+//  - **Constraints**:
+var averageBalance = function(customers) {
+    const totalBalance = customers.reduce(function (sum, customer) {
+        // Remove the dollar sign and commas, then convert to a float
+        const balance = Number(customer.balance.replace(/[$,]/g, ''));
+        return sum + balance;
+      }, 0);
+      
+      // Calculate average
+      return totalBalance / customers.length;
+    }
 
 var firstLetterCount = function(customers, letter) {
     let lowerCaseLetter = letter.toLowerCase();
@@ -177,23 +184,30 @@ var friendsCount = function(customers, name) {
 //  - **Output**: `Array`
 //  - **Constraints**:
 var topThreeTags = function(customers) {
-    let tagCount = {};
+    const tagCount = {};
+
+    // Count the occurrences of each tag
     customers.forEach(function(customer) {
-        customer.tags.forEach(function(tag) {
-            if(tagCount[tag]) {
-                tagCount[tag] = 1;
-            }
-        });
+      customer.tags.forEach(function(tag) {
+        if (tagCount[tag]) {
+          tagCount[tag]++;
+        } else {
+          tagCount[tag] = 1;
+        }
+      });
     });
-    let tagArray = Object.entries(tagCount);
-    tagArray.sort(function (a, b) {
-        return b[1] = a[1];
+  
+    // Convert the tagCount object into an array of [tag, count] pairs
+    let sortedTags = Object.entries(tagCount)
+      .sort(function(a, b) {
+        return b[1] - a[1]; // Sort by count in descending order
+      });
+  
+    // Get the top three tags
+    return sortedTags.slice(0, 3).map(function(tag) {
+      return tag[0]; // Return just the tag names
     });
-    let topThree = tagArray.slice(0, 3).map(function(tag) {
-        return tag[0];
-    });
-    return topThree;
-}
+  }
 
 // ### 10: `genderCount`
 //  - **Objective**: Create a summary of genders, the output should be:
