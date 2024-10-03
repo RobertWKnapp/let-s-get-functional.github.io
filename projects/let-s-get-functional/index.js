@@ -145,19 +145,23 @@ var firstLetterCount = function(customers, letter) {
 //  - **Input**: `Array`, `Customer`, `Letter`
 //  - **Output**: `Number`
 //  - **Constraints**:
-var friendFirstLetterCount = function(customers, customerId, letter){
-    let customer = customers.find(function (cust) {
-        return cust._id === customerId;
-    });  // if the customer is not found return zero
-    if (!customer) {
-        return 0;
-    } // convert the letter to lowercase for comparison = not sure if necessary
-let lowerCaseLetter = letter.toLowerCase();
-let filteredFriends = customer.friends.filter(function(friend) {
-    return friend.name.charAt(0).toLowerCase() === lowerCaseLetter;
-});  // return the number count
-return filteredFriends.length;
-}
+var friendFirstLetterCount = function(customers, customer, letter){ 
+    // Put everything in lower case for comparison
+    const lowerLetter = letter.toLowerCase();
+
+    // Find the customer by their ID or object
+    const foundCustomer = customers.find(c => c._id === customer._id);
+
+    // If the customer is found, filter their friends
+    if (foundCustomer && foundCustomer.friends) {
+        return foundCustomer.friends.filter(friend => 
+            friend.name.toLowerCase().startsWith(lowerLetter)
+        ).length;
+    }
+
+    // Return 0 if the customer is not found or has no friends
+    return 0;
+};
 
 // ### 8: `friendsCount`
 //  - **Objective**: Find the customers' names that have a given customer's name in their friends list
