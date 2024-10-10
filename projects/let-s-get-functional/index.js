@@ -136,7 +136,7 @@ var averageBalance = function(customers) {
 var firstLetterCount = function(customers, letter) {
     let lowerCaseLetter = letter.toLowerCase();
     let customerFilter = customers.filter(function (customer){
-        return customer.name.charAt(0).toLowerCase() ===lowerCaseLetter;
+        return customer.name.charAt(0).toLowerCase() === lowerCaseLetter;
     });
     return customerFilter.length
 }
@@ -145,22 +145,54 @@ var firstLetterCount = function(customers, letter) {
 //  - **Input**: `Array`, `Customer`, `Letter`
 //  - **Output**: `Number`
 //  - **Constraints**:
-var friendFirstLetterCount = function(customers, customer, letter){ 
-    // Put everything in lower case for comparison
-    const lowerLetter = letter.toLowerCase();
 
-    // Find the customer by their ID or object
-    const foundCustomer = customers.find(c => c._id === customer._id);
+var friendFirstLetterCount = function(array, customer, letter){ 
 
-    // If the customer is found, filter their friends
-    if (foundCustomer && foundCustomer.friends) {
+    // // Put everything in lower case for comparison
+    // const lowerLetter = letter.toLowerCase();
+
+    // // Find the customer by their ID or object
+    // const foundCustomer = customers.find(c => c._id === customer._id);
+
+    // // If the customer is found, filter their friends
+    // if (foundCustomer && foundCustomer.friends) {
+    //     return foundCustomer.friends.filter(friend => 
+    //         friend.name.toLowerCase().startsWith(lowerLetter)
+    //     ).length;
+    // }
+
+    // // Return 0 if the customer is not found or has no friends
+    // return 0;
+
+
+    // const customer = customers.find(function(c) {
+    //   return c.name === customerName;
+    // });
+  
+    // if (!customer) {
+    //   return 0; // Customer not found
+    // }
+  
+    // let lowerCaseLetter = letter.toLowerCase();
+  
+    // return customer.friends.filter(function(friend) {
+    //   return friend.name.toLowerCase().startsWith(lowerCaseLetter);
+    // }).length;
+
+        // Convert letter to lowercase for case insensitive comparison
+        const lowerCaseLetter = letter.toLowerCase();
+    
+        // Find the customer by name
+        const foundCustomer = array.find(c => c.name === customer);
+        
+        if (!foundCustomer) {
+            return 0; // Return 0 if the customer is not found
+        }
+        
+        // Count friends whose names start with the specified letter
         return foundCustomer.friends.filter(friend => 
-            friend.name.toLowerCase().startsWith(lowerLetter)
+            friend.name.toLowerCase().startsWith(lowerCaseLetter)
         ).length;
-    }
-
-    // Return 0 if the customer is not found or has no friends
-    return 0;
 };
 
 // ### 8: `friendsCount`
